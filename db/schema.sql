@@ -1,2 +1,2 @@
-DROP DATABASE IF EXISTS chalange_db;
-CREATE DATABASE chalange_db;
+DROP DATABASE IF EXISTS challenge_db;
+CREATE DATABASE challenge_db;

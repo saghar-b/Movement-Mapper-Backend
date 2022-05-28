@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 const bcrypt = require("bcrypt");
-const Op = require('sequelize').Op;
 
 // login
 router.post('/login', async (req, res) => {
@@ -15,29 +14,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ msg: "wrong login credentials" })
     }
     if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-      req.session.user = {
-        id: foundUser.id,
-        user_name: foundUser.user_name,
-        offset: req.body.timeZoneOffset,
-        logged_in: true
-      }
-      const today = new Date();
-      const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-      const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      const dateTime = date + ' ' + time;
-      const invites = await Event.findAll({
-        include: [{
-          model: User,
-          as: 'attendees',
-        }],
-        where: {
-          '$attendees.id$': req.session.user?.id,
-          '$attendees.attendee.rsvp_status$': 0,
-          creator_id: { [Op.ne]: req.session.user?.id },
-          start_time: { [Op.gt]: dateTime },
-        }
-      })
-      req.session.user.noti = invites.length;
+      // console.log(foundUser)
       return res.json(foundUser)
     } else {
       return res.status(400).json({ msg: "wrong login credentials" })
