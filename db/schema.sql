@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS chalange_db;
+CREATE DATABASE chalange_db;
