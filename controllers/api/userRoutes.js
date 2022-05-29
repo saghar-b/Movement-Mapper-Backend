@@ -44,11 +44,6 @@ router.post('/login', async (req, res) => {
 router.post("/signup", (req, res) => {
   User.create(req.body)
     .then(newUser => {
-      // req.session.user = {
-      //   id: newUser.id,
-      //   user_name: newUser.user_name,
-      //   logged_in: true
-      // }
       console.log(newUser)
       res.json(newUser);
     })
