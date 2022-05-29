@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const jwt = require("jsonwebtoken")
 const { User } = require('../../models');
 const bcrypt = require("bcrypt");
 
@@ -14,8 +15,21 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ msg: "wrong login credentials" })
     }
     if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-      // console.log(foundUser)
-      return res.json(foundUser)
+      const token = jwt.sign({
+
+        user_name: foundUser.user_name,
+        id: foundUser.id
+
+      },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "2h"
+        }
+      );
+      return res.json({
+        token: token,
+        user: foundUser
+      })
     } else {
       return res.status(400).json({ msg: "wrong login credentials" })
     }
@@ -30,11 +44,12 @@ router.post('/login', async (req, res) => {
 router.post("/signup", (req, res) => {
   User.create(req.body)
     .then(newUser => {
-      req.session.user = {
-        id: newUser.id,
-        user_name: newUser.user_name,
-        logged_in: true
-      }
+      // req.session.user = {
+      //   id: newUser.id,
+      //   user_name: newUser.user_name,
+      //   logged_in: true
+      // }
+      console.log(newUser)
       res.json(newUser);
     })
     .catch(err => {
