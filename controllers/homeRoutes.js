@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('sequelize');
 const jwt = require("jsonwebtoken")
-const { User, Challenge, Participate, Logs } = require('../models');
+const { User, Challenge, Participants, Logs } = require('../models');
 
 
 // get users with challenges
@@ -30,7 +30,7 @@ router.get('/users', async (req, res) => {
     }
 });
 
-// get challenges with participants
+// get challenges with Participants
 router.get('/challenges', async (req, res) => {
 
     const toekn = req.headers?.authorization?.split(" ").pop();

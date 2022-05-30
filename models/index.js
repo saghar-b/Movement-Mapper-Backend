@@ -2,16 +2,16 @@
 
 const User = require('./User');
 const Challenge = require('./Challenge');
-const Participate = require('./Participate');
+const Participants = require('./Participants');
 const Logs = require('./Logs');
 
 User.belongsToMany(Challenge, {
-    through: Participate,
+    through: Participants,
     as: "challenges",
     foreignKey: 'user_id',
 });
 Challenge.belongsToMany(User, {
-    through: Participate,
+    through: Participants,
     as: 'participants',
     foreignKey: 'challenge_id',
 });
@@ -24,5 +24,5 @@ User.hasMany(Logs,{
     foreignKey: "user_id" 
 })
 module.exports = {
-    User,Challenge,Participate,Logs
+    User,Challenge,Participants,Logs
 };

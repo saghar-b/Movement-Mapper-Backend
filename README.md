@@ -10,11 +10,12 @@ Here are some guidelines to help you get started:
 5. Run the `npm install express mysql2 sequelize dotenv bcrypt connect-session-sequelize express-session jsonwebtoken` comand in your terminal
 6. Run the `npm install cors` comand in your terminal
 7.  inside it should have:
-    * DB_USER=root
-    * DB_PASSWORD= what ever your password is for root user
-    * DB_NAME= byo_backpac_db
-    * SESSION_SECRET = super secret 
+    * DB_NAME=challenge_db
+    * DB_PASSWORD=*****
+    *   DB_USER=root
+    *   SESSION_SECRET = super secret
+    *   JWT_SECRET= very secure
 8.  start the terminal from index.js
-9.  run the `npm run resetdb` in terminal
-10. run the `npm run seeds` in terminal
+9.  run the `npm run schema` in terminal
+10. run the `npm run seed` in terminal
 11. run the `npm start` in terminal
