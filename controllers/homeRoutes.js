@@ -37,7 +37,7 @@ router.get('/challenges', async (req, res) => {
     jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
         if (err) {
             console.log(err);
-            es.status(403).json({ msg: "Invalid credentials, err" });
+            res.status(403).json({ msg: "Invalid credentials, err" });
         }
         else {
             
