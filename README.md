@@ -19,3 +19,4 @@ Here are some guidelines to help you get started:
 9.  run the `npm run schema` in terminal
 10. run the `npm run seed` in terminal
 11. run the `npm start` in terminal
+[](Assets/challenge.png)

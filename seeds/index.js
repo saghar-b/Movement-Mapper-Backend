@@ -1,6 +1,6 @@
 const sequelize = require("../config/connection");
 const moment = require("moment");
-const { User, Challenge, Participate, Logs } = require("../models");
+const { User, Challenge, Participants, Logs } = require("../models");
 
 const users = [
     {
@@ -20,20 +20,39 @@ const challenge = [
     {
         Challenge_type: "run",
         Challenge_name: "greenlacke run",
-        creator_id:2
+        creator_id:2,
+        start_time:"2022-05-24T15:30",
+        end_time:"2022-06-24T17:45",
+        description: "Best Challenge",
+        picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
 
     }, {
         Challenge_type: "sweem",
         Challenge_name: "fircrest swimming pool",
-        creator_id:2
+        creator_id:2,
+        start_time:"2022-05-24T15:30",
+        end_time:"2022-05-24T17:45",
+        description: "Best Challenge",
+        picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
+
     }, {
         Challenge_type: "rowing",
         Challenge_name: "lake washington row",
-        creator_id:2
+        creator_id:2,
+        start_time:"2022-06-24T15:30",
+        end_time:"2022-07-24T17:45",
+        description: "Best Challenge",
+        picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
+
     }, {
         Challenge_type: "biking",
         Challenge_name: "seattle bike",
-        creator_id:1
+        creator_id:1,
+        start_time:"2022-05-24T15:30",
+        end_time:"2022-08-24T17:45",
+        description: "Best Challenge",
+        picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
+
     }
 ]
 const participate = [
@@ -111,7 +130,7 @@ const feedMe = async () => {
             individualHooks: true
         });
         await Challenge.bulkCreate(challenge);
-        await Participate.bulkCreate(participate)
+        await Participants.bulkCreate(participate)
         await Logs.bulkCreate(logs)
 
         process.exit(0);
