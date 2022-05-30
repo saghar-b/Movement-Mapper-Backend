@@ -1,42 +1,40 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
-// const bcrypt = require("bcrypt")
 
-class Challenge extends Model { }
 
-Challenge.init({
-    // define columns
+class Logs extends Model { }
+
+Logs.init({
+   
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
     },
-    Challenge_type: {
+    activity_type: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: false,
        
     },
-    Challenge_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true, 
-    },
-    creator_id: {
+    user_id: {
         type: DataTypes.INTEGER,
         references: {
             model: 'user',
             key: 'id',
-        }
+        },
+    },
+    distance :{
+        type : DataTypes.DECIMAL(10,1),
+        defaultValue:0,
     }
 
 }, {
+    
     sequelize,
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'challenge',
+    modelName: 'logs',
 });
 
-module.exports = Challenge
+module.exports = Logs
