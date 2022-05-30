@@ -29,7 +29,29 @@ Challenge.init({
             model: 'user',
             key: 'id',
         }
-    }
+    },
+     start_time: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+            isDate: true
+        }
+    },
+    end_time: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+            isDate: true
+        }
+    },
+    description: {
+        type: DataTypes.TEXT,
+        defaultValue: "no description",
+    },
+    picture_path: {
+        type: DataTypes.STRING,
+        defaultValue: "./Assets/challenge.png",
+    },
 
 }, {
     sequelize,
