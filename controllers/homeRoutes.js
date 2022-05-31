@@ -70,7 +70,7 @@ router.get('/challenges/:user_id', async (req, res) => {
     jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
         if (err) {
             console.log(err);
-            es.status(403).json({ msg: "Invalid credentials, err" });
+            res.status(403).json({ msg: "Invalid credentials, err" });
         }
         else {
             
@@ -93,6 +93,29 @@ router.get('/challenges/:user_id', async (req, res) => {
                 })
         }
     });
+});
+
+// get challenges with for specific type
+router.get('/challenges/types/:Challenge_type', async (req, res) => {
+
+    const foundChallengeType =  Challenge.findAll({
+        include: [{
+            model: User,
+            as: 'participants'
+        },
+        ],
+        where:{
+            Challenge_type :req.params.Challenge_type
+        }
+    }).then(foundChallengeType =>{
+        if (!foundChallengeType) {
+            return res.status(400).json({ msg: "No User Found" })
+        }
+        else {
+            return res.json(foundChallengeType)
+        }
+    })
+    
 });
 // get users with challenges
 router.get('/logs', async (req, res) => {
