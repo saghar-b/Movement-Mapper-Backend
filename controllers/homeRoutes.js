@@ -30,6 +30,32 @@ router.get('/users', async (req, res) => {
     }
 });
 
+// get one challenge
+router.get('/challenge/:challenge_id', async (req, res) => {
+
+    const foundChalleneg=  Challenge.findOne({
+        include: [{
+            model: User,
+            as: 'participants'
+        },
+        ],
+        where:{
+            id:req.params.challenge_id,
+        }
+    }).then(foundChalleneg =>{
+        if (!foundChalleneg) {
+            return res.status(400).json({ msg: "No User Found" })
+        }
+        else {
+            return res.json(foundChalleneg)
+        }
+    })
+    
+});
+
+
+
+// get all the challenge types
 router.get('/challenges/types', async (req, res) => {
 
     const foundUser =  Challenge.findAll({
@@ -117,6 +143,8 @@ router.get('/challenges/types/:Challenge_type', async (req, res) => {
     })
     
 });
+
+
 // get users with challenges
 router.get('/logs', async (req, res) => {
     // try {
