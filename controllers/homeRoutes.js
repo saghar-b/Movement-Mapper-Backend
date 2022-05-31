@@ -32,58 +32,36 @@ router.get('/users', async (req, res) => {
 
 router.get('/challenges/types', async (req, res) => {
 
-    const toekn = req.headers?.authorization?.split(" ").pop();
-    jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
-        if (err) {
-            console.log(err);
-            res.status(403).json({ msg: "Invalid credentials, err" });
+    const foundUser =  Challenge.findAll({
+        attributes: ["challenge_type"]
+    }).then(foundUser =>{
+        if (!foundUser) {
+            return res.status(400).json({ msg: "No User Found" })
         }
         else {
-            
-                const foundUser =  Challenge.findAll({
-                    attributes: ["challenge_type"]
-                }).then(foundUser =>{
-                    if (!foundUser) {
-                        return res.status(400).json({ msg: "No User Found" })
-                    }
-                    else {
-                        return res.json(foundUser)
-                    }
-                })
+            return res.json(foundUser)
         }
-    });
-
+    })
     
 });
 // get challenges with Participants
 router.get('/challenges', async (req, res) => {
 
-    const toekn = req.headers?.authorization?.split(" ").pop();
-    jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
-        if (err) {
-            console.log(err);
-            res.status(403).json({ msg: "Invalid credentials, err" });
+    const foundUser =  Challenge.findAll({
+        include: [{
+            model: User,
+            as: 'participants'
+        },
+        ]
+    }).then(foundUser =>{
+        if (!foundUser) {
+            return res.status(400).json({ msg: "No User Found" })
         }
         else {
-            
-                const foundUser =  Challenge.findAll({
-                    include: [{
-                        model: User,
-                        as: 'participants'
-                    },
-                    ]
-                }).then(foundUser =>{
-                    if (!foundUser) {
-                        return res.status(400).json({ msg: "No User Found" })
-                    }
-                    else {
-                        return res.json(foundUser)
-                    }
-                })
+            return res.json(foundUser)
         }
-    });
+    })
 
-    // }
 });
 // get challenges with participants for creator
 router.get('/challenges/:user_id', async (req, res) => {
