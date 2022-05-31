@@ -52,6 +52,10 @@ Challenge.init({
         type: DataTypes.STRING,
         defaultValue: "./Assets/challenge.png",
     },
+    unit: {
+        type: DataTypes.STRING,
+        defaultValue: "Mile",
+    },
 
 }, {
     sequelize,

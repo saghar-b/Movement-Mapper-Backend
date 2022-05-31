@@ -25,7 +25,7 @@ const challenge = [
         end_time:"2022-06-24T17:45",
         description: "Best Challenge",
         picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
-
+        unit: "Mile"
     }, {
         Challenge_type: "sweem",
         Challenge_name: "fircrest swimming pool",
@@ -34,7 +34,7 @@ const challenge = [
         end_time:"2022-05-24T17:45",
         description: "Best Challenge",
         picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
-
+        unit: "Mile"
     }, {
         Challenge_type: "rowing",
         Challenge_name: "lake washington row",
@@ -43,7 +43,7 @@ const challenge = [
         end_time:"2022-07-24T17:45",
         description: "Best Challenge",
         picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
-
+        unit: "Mile"
     }, {
         Challenge_type: "biking",
         Challenge_name: "seattle bike",
@@ -52,6 +52,7 @@ const challenge = [
         end_time:"2022-08-24T17:45",
         description: "Best Challenge",
         picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
+        unit: "Mile"
 
     }
 ]
