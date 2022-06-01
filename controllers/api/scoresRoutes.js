@@ -4,8 +4,8 @@ const { Challenge, Scores } = require('../../models');
 
 // create new Log
 router.post("/new", (req, res) => {
-    // console.log(req.body.challenge_id)
-    // console.log(req.body.user_id)
+    console.log(req.body.challenge_id)
+    console.log(req.body.user_id)
     const toekn = req.headers?.authorization?.split(" ").pop();
     jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
         if (err) {
@@ -52,7 +52,7 @@ router.post("/new", (req, res) => {
                         })
                         .catch(err => {
                             console.log(err);
-                            res.status(500).json({ msg: "This username  exist.Please use another username ", err });
+                            res.status(500).json({ msg: "fail to create the score ", err });
                         });
                 }
             })
