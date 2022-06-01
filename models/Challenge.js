@@ -16,12 +16,12 @@ Challenge.init({
         type: DataTypes.STRING,
         allowNull: false,
         unique: false,
-       
+
     },
     Challenge_name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true, 
+        unique: true,
     },
     creator_id: {
         type: DataTypes.INTEGER,
@@ -30,7 +30,7 @@ Challenge.init({
             key: 'id',
         }
     },
-     start_time: {
+    start_time: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
