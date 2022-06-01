@@ -2,10 +2,10 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 
-class Participants extends Model { }
+class Scores extends Model { }
 
-Participants.init({
-   
+Scores.init({
+
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -26,18 +26,18 @@ Participants.init({
             key: 'id',
         },
     },
-    distance :{
-        type : DataTypes.DECIMAL(10,1),
-        defaultValue:0,
+    distance: {
+        type: DataTypes.DECIMAL(10, 1),
+        defaultValue: 0,
     }
 
 }, {
-    
+
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'participate',
+    modelName: 'score',
 });
 
-module.exports = Participants
+module.exports = Scores

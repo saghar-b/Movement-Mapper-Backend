@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('sequelize');
 const jwt = require("jsonwebtoken")
-const { User, Challenge, Participants, Logs } = require('../models');
+const { User, Challenge, Scores} = require('../models');
 
 
 // get users with challenges
@@ -11,10 +11,6 @@ router.get('/users', async (req, res) => {
             include: [{
                 model: Challenge,
                 as: 'challenges'
-            },{
-                model: Logs,
-                as: 'logs'
-                
             }
             ]
         })
@@ -30,6 +26,32 @@ router.get('/users', async (req, res) => {
     }
 });
 
+// get one challenge
+router.get('/challenge/:challenge_id', async (req, res) => {
+
+    const foundChalleneg=  Challenge.findOne({
+        include: [{
+            model: User,
+            as: 'scores'
+        },
+        ],
+        where:{
+            id:req.params.challenge_id,
+        }
+    }).then(foundChalleneg =>{
+        if (!foundChalleneg) {
+            return res.status(400).json({ msg: "No User Found" })
+        }
+        else {
+            return res.json(foundChalleneg)
+        }
+    })
+    
+});
+
+
+
+// get all the challenge types
 router.get('/challenges/types', async (req, res) => {
 
     const foundUser =  Challenge.findAll({
@@ -50,7 +72,7 @@ router.get('/challenges', async (req, res) => {
     const foundUser =  Challenge.findAll({
         include: [{
             model: User,
-            as: 'participants'
+            as: 'scores'
         },
         ]
     }).then(foundUser =>{
@@ -77,7 +99,7 @@ router.get('/challenges/:user_id', async (req, res) => {
                 const foundUser =  Challenge.findAll({
                     include: [{
                         model: User,
-                        as: 'participants'
+                        as: 'scores'
                     },
                     ],
                     where:{
@@ -101,7 +123,7 @@ router.get('/challenges/types/:Challenge_type', async (req, res) => {
     const foundChallengeType =  Challenge.findAll({
         include: [{
             model: User,
-            as: 'participants'
+            as: 'scores'
         },
         ],
         where:{
@@ -117,6 +139,8 @@ router.get('/challenges/types/:Challenge_type', async (req, res) => {
     })
     
 });
+
+
 // get users with challenges
 router.get('/logs', async (req, res) => {
     // try {
