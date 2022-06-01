@@ -8,7 +8,7 @@ const challengesRoutes = require('./challengesRoutes');
 router.use('/challenges', challengesRoutes);
 
 
-const participantsRoutes = require('./participantsRoutes');
-router.use('/participants', participantsRoutes);
+const scoresRoutes = require('./scoresRoutes');
+router.use('/scores', scoresRoutes);
 
 module.exports = router;

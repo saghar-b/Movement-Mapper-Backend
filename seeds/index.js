@@ -1,6 +1,6 @@
 const sequelize = require("../config/connection");
 const moment = require("moment");
-const { User, Challenge, Participants, Logs } = require("../models");
+const { User, Challenge, Scores, Logs } = require("../models");
 
 const users = [
     {
@@ -56,7 +56,7 @@ const challenge = [
 
     }
 ]
-const participate = [
+const scores = [
     {
         user_id: "1",
         challenge_id: "1",
@@ -131,7 +131,7 @@ const feedMe = async () => {
             individualHooks: true
         });
         await Challenge.bulkCreate(challenge);
-        await Participants.bulkCreate(participate)
+        await Scores.bulkCreate(scores)
         await Logs.bulkCreate(logs)
 
         process.exit(0);
