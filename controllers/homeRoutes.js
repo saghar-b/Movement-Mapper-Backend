@@ -68,6 +68,25 @@ router.get('/challenges/types', async (req, res) => {
     })
     
 });
+// check if the user join the challenge
+router.get('/challenges/score', async (req, res) => {
+
+    const foundScore =  Scores.findOne({
+        where: {
+            challenge_id: req.body.challenge_id,
+            user_id: req.body.user_id,
+        },
+        
+    }).then(foundScore =>{
+        if (!foundScore) {
+            return res.status(400).json({ msg: "User not joined" })
+        }
+        else {
+            return res.json(foundScore)
+        }
+    })
+    
+});
 // get challenges with Participants
 router.get('/challenges', async (req, res) => {
     const today = new Date();
