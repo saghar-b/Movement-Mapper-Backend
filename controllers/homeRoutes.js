@@ -49,8 +49,6 @@ router.get('/challenge/:challenge_id', async (req, res) => {
     
 });
 
-
-
 // get all the challenge types
 router.get('/challenges/types', async (req, res) => {
 
@@ -69,12 +67,12 @@ router.get('/challenges/types', async (req, res) => {
     
 });
 // check if the user join the challenge
-router.get('/challenges/score', async (req, res) => {
+router.get('/challenges/score/:user_id/:challenge_id', async (req, res) => {
 
     const foundScore =  Scores.findOne({
         where: {
-            challenge_id: req.body.challenge_id,
-            user_id: req.body.user_id,
+            challenge_id: req.params.challenge_id,
+            user_id: req.params.user_id,
         },
         
     }).then(foundScore =>{
@@ -124,6 +122,11 @@ router.get('/challenges/creator/:user_id', async (req, res) => {
                         model: User,
                         as: 'scores'
                     },
+                    {
+                        model: User,
+                        as: 'creator',
+                        // where: { '$public$': true }
+                      },
                     ],
                     where:{
                         creator_id :req.params.user_id
