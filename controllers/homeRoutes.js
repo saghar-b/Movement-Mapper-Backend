@@ -2,7 +2,7 @@ const router = require('express').Router();
 const sequelize = require('sequelize');
 const jwt = require("jsonwebtoken")
 const { User, Challenge, Scores} = require('../models');
-
+const Op = require('sequelize').Op;
 
 // get users with challenges
 router.get('/users', async (req, res) => {
@@ -55,7 +55,9 @@ router.get('/challenge/:challenge_id', async (req, res) => {
 router.get('/challenges/types', async (req, res) => {
 
     const foundUser =  Challenge.findAll({
-        attributes: ["challenge_type"]
+        attributes: ["challenge_type"],
+        group: ['Challenge.challenge_type'],
+        
     }).then(foundUser =>{
         if (!foundUser) {
             return res.status(400).json({ msg: "No User Found" })
@@ -68,13 +70,15 @@ router.get('/challenges/types', async (req, res) => {
 });
 // get challenges with Participants
 router.get('/challenges', async (req, res) => {
-
+    const today = new Date();
     const foundUser =  Challenge.findAll({
         include: [{
             model: User,
             as: 'scores'
         },
-        ]
+        ], 
+        where: { end_time: { [Op.gte]: today } },
+        order: ['start_time']
     }).then(foundUser =>{
         if (!foundUser) {
             return res.status(400).json({ msg: "No User Found" })
