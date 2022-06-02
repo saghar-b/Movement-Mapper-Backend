@@ -128,7 +128,11 @@ router.get('/challenges/types/:Challenge_type', async (req, res) => {
         include: [{
             model: User,
             as: 'scores'
-        },
+        },{
+            model: User,
+            as: 'creator',
+            // where: { '$public$': true }
+          },
         ],
         where:{
             Challenge_type :req.params.Challenge_type
