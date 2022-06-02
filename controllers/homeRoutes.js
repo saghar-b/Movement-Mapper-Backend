@@ -109,7 +109,7 @@ router.get('/challenges', async (req, res) => {
 
 });
 // get challenges with participants for creator
-router.get('/challenges/:user_id', async (req, res) => {
+router.get('/challenges/creator/:user_id', async (req, res) => {
 
     const toekn = req.headers?.authorization?.split(" ").pop();
     jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
