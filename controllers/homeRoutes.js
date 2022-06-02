@@ -139,6 +139,38 @@ router.get('/challenges/creator/:user_id', async (req, res) => {
         }
     });
 });
+// get challenges with participants for creator
+router.get('/challenges/joined/:user_id', async (req, res) => {
+
+    const toekn = req.headers?.authorization?.split(" ").pop();
+    jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(403).json({ msg: "Invalid credentials, err" });
+        }
+        else {
+            
+                const foundUser =  Challenge.findAll({
+                    include: [{
+                        model: User,
+                        as: 'scores'
+                    },
+                    ],
+                   
+                    where:{  '$scores.id$': req.params.user_id }
+                     
+                    
+                }).then(foundUser =>{
+                    if (!foundUser) {
+                        return res.status(400).json({ msg: "No User Found" })
+                    }
+                    else {
+                        return res.json(foundUser)
+                    }
+                })
+        }
+    });
+});
 
 // get challenges with for specific type
 router.get('/challenges/types/:Challenge_type', async (req, res) => {
