@@ -16,6 +16,14 @@ Challenge.belongsToMany(User, {
     foreignKey: 'challenge_id',
 });
 
+// Event belongs one creator
+Challenge.belongsTo(User, {
+    as: 'creator',
+    foreignKey: "creator_id"
+});
+User.hasMany(Challenge, {
+    foreignKey: "creator_id"
+});
 // Logs.belongsTo(User,{
 //     foreignKey: "user_id"
 // })
