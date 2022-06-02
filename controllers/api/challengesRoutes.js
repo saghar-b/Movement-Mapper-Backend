@@ -51,4 +51,22 @@ router.post("/new", (req, res) => {
 
 });
 
+//delete a Challenge
+router.delete("/:id", async (req, res) => {
+    
+    
+    try {
+        const curEvent = await Challenge.findByPk(req.params.id);
+        const delEvent = await Challenge.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.json(delEvent);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "an error occured", err });
+    }
+});
+
 module.exports = router;
