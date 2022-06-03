@@ -22,9 +22,9 @@ router.post("/new", (req, res) => {
             }).then(foundScore => {
                 // if the score exist
                 if (foundScore) {
-                  
+
                     const newScore = parseInt(foundScore.distance) + parseInt(req.body.distance)
-                   
+
                     Scores.update({
                         distance: newScore,
 
@@ -45,7 +45,7 @@ router.post("/new", (req, res) => {
                 }
                 // if score doesnt exist
                 else {
-                   
+
                     Scores.create(req.body)
                         .then(newScore => {
                             res.json(newScore)
@@ -61,5 +61,24 @@ router.post("/new", (req, res) => {
     });
 
 });
+
+//leave the challenge
+router.delete("/:user_id/:challenge_id", (req, res) => {
+    console.log(req.params.user_id)
+    console.log(req.params.challenge_id)
+    Scores.destroy({
+        where: {
+            user_id: req.params.user_id,
+            challenge_id: req.params.challenge_id
+        }
+    }).then(delScore => {
+        res.json(delScore);
+    })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ msg: "an error occured", err });
+        });
+});
+
 
 module.exports = router;

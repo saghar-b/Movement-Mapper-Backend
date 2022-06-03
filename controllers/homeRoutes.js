@@ -178,8 +178,10 @@ router.get('/challenges/joined/:user_id', async (req, res) => {
                         as: 'scores'
                     },
                     ],
-                   
-                    where:{  '$scores.id$': req.params.user_id }
+                    where:{  
+                        '$scores.id$': req.params.user_id,
+                        creator_id:{[Op.ne]:req.params.user_id}
+                     }
                      
                     
                 }).then(foundUser =>{
