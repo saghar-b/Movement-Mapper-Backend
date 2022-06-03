@@ -176,7 +176,10 @@ router.get('/challenges/joined/:user_id', async (req, res) => {
                     include: [{
                         model: User,
                         as: 'scores'
-                    },
+                    },{
+                        model: User,
+                        as: 'creator',
+                      },
                     ],
                     where:{  
                         '$scores.id$': req.params.user_id,
