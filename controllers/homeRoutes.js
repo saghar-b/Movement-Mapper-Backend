@@ -96,7 +96,7 @@ router.get('/challenges/score/:user_id/:challenge_id', async (req, res) => {
         
     }).then(foundScore =>{
         if (!foundScore) {
-            return res.status(400).json({ msg: "User not joined" })
+            return res.status(400).json({ msg: "NO" })
         }
         else {
             return res.json(foundScore)
