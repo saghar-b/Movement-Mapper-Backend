@@ -3,6 +3,25 @@ const sequelize = require('sequelize');
 const jwt = require("jsonwebtoken")
 const { User, Challenge, Scores} = require('../models');
 const Op = require('sequelize').Op;
+// get one challenge ID
+router.get('/challenges/score/id/:challenge_name', async (req, res) => {
+   
+
+    const foundChalleneg=  Challenge.findOne({
+        
+        where:{
+            challenge_name:req.params.challenge_name,
+        }
+    }).then(foundChalleneg =>{
+        if (!foundChalleneg) {
+            return res.status(400).json({ msg: "No challenege Found" })
+        }
+        else {
+            return res.json(foundChalleneg)
+        }
+    })
+    
+});
 
 // get users with challenges
 router.get('/users', async (req, res) => {
@@ -142,7 +161,7 @@ router.get('/challenges/creator/:user_id', async (req, res) => {
         }
     });
 });
-// get challenges with participants for creator
+// get challenges for creator who joined challenges
 router.get('/challenges/joined/:user_id', async (req, res) => {
 
     const toekn = req.headers?.authorization?.split(" ").pop();
@@ -204,35 +223,35 @@ router.get('/challenges/types/:Challenge_type', async (req, res) => {
 
 
 // get users with challenges
-router.get('/logs', async (req, res) => {
-    // try {
-        console.log(req.body.activity_type)
-        console.log("run")
-        console.log(req.body.user_id)
-        const totalAmount = await Logs.findAll({
-            attributes: [
-              'user_id',
-              [sequelize.fn('sum', sequelize.col('distance')), 'total_distance'],
-            ],
-            group: ['Logs.user_id'],
-            where:{
-                activity_type :req.body.activity_type,
-                user_id :req.body.user_id
+// router.get('/logs', async (req, res) => {
+//     // try {
+//         console.log(req.body.activity_type)
+//         console.log("run")
+//         console.log(req.body.user_id)
+//         const totalAmount = await Logs.findAll({
+//             attributes: [
+//               'user_id',
+//               [sequelize.fn('sum', sequelize.col('distance')), 'total_distance'],
+//             ],
+//             group: ['Logs.user_id'],
+//             where:{
+//                 activity_type :req.body.activity_type,
+//                 user_id :req.body.user_id
 
-            }
-          });
+//             }
+//           });
         
-        if (!totalAmount) {
-            return res.status(400).json({ msg: "No User Found" })
-        }
-        else {
-            return res.json(totalAmount)
-        }
-    // }
-    // catch (err) {
-    //     res.status(500).json({ msg: "an error occured", err });
-    // }
-});
+//         if (!totalAmount) {
+//             return res.status(400).json({ msg: "No User Found" })
+//         }
+//         else {
+//             return res.json(totalAmount)
+//         }
+//     // }
+//     // catch (err) {
+//     //     res.status(500).json({ msg: "an error occured", err });
+//     // }
+// });
 
 
 
