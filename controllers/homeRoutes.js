@@ -200,7 +200,7 @@ router.get('/challenges/joined/:user_id', async (req, res) => {
 });
 
 // get challenges with for specific type
-router.get('/challenges/types/:Challenge_type', async (req, res) => {
+router.get('/challenges/types/login/:user_id/:Challenge_type', async (req, res) => {
 
     const foundChallengeType =  Challenge.findAll({
         include: [{
@@ -209,11 +209,41 @@ router.get('/challenges/types/:Challenge_type', async (req, res) => {
         },{
             model: User,
             as: 'creator',
-            // where: { '$public$': true }
+      
           },
         ],
         where:{
-            Challenge_type :req.params.Challenge_type
+            Challenge_type :req.params.Challenge_type,
+            creator_id:{[Op.ne]:req.params.user_id}
+
+        }
+    }).then(foundChallengeType =>{
+        if (!foundChallengeType) {
+            return res.status(400).json({ msg: "No User Found" })
+        }
+        else {
+            return res.json(foundChallengeType)
+        }
+    })
+    
+});
+// get challenges with for specific type
+router.get('/challenges/types/no/:Challenge_type', async (req, res) => {
+
+    const foundChallengeType =  Challenge.findAll({
+        include: [{
+            model: User,
+            as: 'scores'
+        },{
+            model: User,
+            as: 'creator',
+      
+          },
+        ],
+        where:{
+            Challenge_type :req.params.Challenge_type,
+            // creator_id:{[Op.ne]:req.params.user_id}
+
         }
     }).then(foundChallengeType =>{
         if (!foundChallengeType) {
