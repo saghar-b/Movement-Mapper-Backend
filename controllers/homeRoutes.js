@@ -75,6 +75,8 @@ router.get('/challenge/:challenge_id', async (req, res) => {
         ],
         where: {
             id: req.params.challenge_id,
+            '$scores.score.join$': true,
+           
         }
     }).then(foundChalleneg => {
         if (!foundChalleneg) {
@@ -112,6 +114,46 @@ router.get('/challenges/score/:user_id/:challenge_id', async (req, res) => {
             challenge_id: req.params.challenge_id,
             user_id: req.params.user_id,
             join :true
+        },
+
+    }).then(foundScore => {
+        if (!foundScore) {
+            return res.status(400).json({ msg: "NO" })
+        }
+        else {
+            return res.json(foundScore)
+        }
+    })
+
+});
+// check if the user join the challenge
+router.get('/challenges/score/:user_id/:challenge_id', async (req, res) => {
+
+    const foundScore = Scores.findOne({
+        where: {
+            challenge_id: req.params.challenge_id,
+            user_id: req.params.user_id,
+            join :true
+        },
+
+    }).then(foundScore => {
+        if (!foundScore) {
+            return res.status(400).json({ msg: "NO" })
+        }
+        else {
+            return res.json(foundScore)
+        }
+    })
+
+});
+// check if the user join the challenge
+router.get('/challenges/score/pending/:user_id/:challenge_id', async (req, res) => {
+
+    const foundScore = Scores.findOne({
+        where: {
+            challenge_id: req.params.challenge_id,
+            user_id: req.params.user_id,
+            join :false
         },
 
     }).then(foundScore => {
@@ -203,6 +245,45 @@ router.get('/challenges/joined/:user_id', async (req, res) => {
                 ],
                 where: {
                     '$scores.id$': req.params.user_id,
+                    '$scores.score.join$': true,
+                    creator_id: { [Op.ne]: req.params.user_id }
+                }
+
+
+            }).then(foundUser => {
+                if (!foundUser) {
+                    return res.status(400).json({ msg: "No User Found" })
+                }
+                else {
+                    return res.json(foundUser)
+                }
+            })
+        }
+    });
+});
+// get challenges for creator who pending challenges
+router.get('/challenges/pending/:user_id', async (req, res) => {
+
+    const toekn = req.headers?.authorization?.split(" ").pop();
+    jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(403).json({ msg: "Invalid credentials, err" });
+        }
+        else {
+
+            const foundUser = Challenge.findAll({
+                include: [{
+                    model: User,
+                    as: 'scores'
+                }, {
+                    model: User,
+                    as: 'creator',
+                },
+                ],
+                where: {
+                    '$scores.id$': req.params.user_id,
+                    '$scores.score.join$': false,
                     creator_id: { [Op.ne]: req.params.user_id }
                 }
 
@@ -277,56 +358,9 @@ router.get('/challenges/types/no/:Challenge_type', async (req, res) => {
 });
 
 
-// get users with challenges
-// router.get('/logs', async (req, res) => {
-//     // try {
-//         console.log(req.body.activity_type)
-//         console.log("run")
-//         console.log(req.body.user_id)
-//         const totalAmount = await Logs.findAll({
-//             attributes: [
-//               'user_id',
-//               [sequelize.fn('sum', sequelize.col('distance')), 'total_distance'],
-//             ],
-//             group: ['Logs.user_id'],
-//             where:{
-//                 activity_type :req.body.activity_type,
-//                 user_id :req.body.user_id
-
-//             }
-//           });
-
-//         if (!totalAmount) {
-//             return res.status(400).json({ msg: "No User Found" })
-//         }
-//         else {
-//             return res.json(totalAmount)
-//         }
-//     // }
-//     // catch (err) {
-//     //     res.status(500).json({ msg: "an error occured", err });
-//     // }
-// });
 
 
 
 
-router.get('/login', (req, res) => {
-
-});
-
-
-router.get('/signup', (req, res) => {
-
-});
-
-
-router.get('/logout', (req, res) => {
-
-});
-
-router.get('*', (req, res) => {
-
-})
 
 module.exports = router;
