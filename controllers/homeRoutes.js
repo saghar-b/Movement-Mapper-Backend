@@ -1,18 +1,18 @@
 const router = require('express').Router();
 const sequelize = require('sequelize');
 const jwt = require("jsonwebtoken")
-const { User, Challenge, Scores} = require('../models');
+const { User, Challenge, Scores } = require('../models');
 const Op = require('sequelize').Op;
 // get one challenge ID
 router.get('/challenges/score/id/:challenge_name', async (req, res) => {
-   
 
-    const foundChalleneg=  Challenge.findOne({
-        
-        where:{
-            challenge_name:req.params.challenge_name,
+
+    const foundChalleneg = Challenge.findOne({
+
+        where: {
+            challenge_name: req.params.challenge_name,
         }
-    }).then(foundChalleneg =>{
+    }).then(foundChalleneg => {
         if (!foundChalleneg) {
             return res.status(400).json({ msg: "No challenege Found" })
         }
@@ -20,7 +20,7 @@ router.get('/challenges/score/id/:challenge_name', async (req, res) => {
             return res.json(foundChalleneg)
         }
     })
-    
+
 });
 
 // get users with challenges
@@ -44,20 +44,39 @@ router.get('/users', async (req, res) => {
         res.status(500).json({ msg: "an error occured", err });
     }
 });
+// get one user
+router.get('/user/:user_name', async (req, res) => {
+    try {
+        const foundUser = await User.findOne({
+            where: {
+                user_name: req.params.user_name,
+            }
+        })
+        if (!foundUser) {
+            return res.status(400).json({ msg: "NO" })
+        }
+        else {
+            return res.json(foundUser)
+        }
+    }
+    catch (err) {
+        res.status(500).json({ msg: "an error occured", err });
+    }
+});
 
 // get one challenge
 router.get('/challenge/:challenge_id', async (req, res) => {
 
-    const foundChalleneg=  Challenge.findOne({
+    const foundChalleneg = Challenge.findOne({
         include: [{
             model: User,
             as: 'scores'
         },
         ],
-        where:{
-            id:req.params.challenge_id,
+        where: {
+            id: req.params.challenge_id,
         }
-    }).then(foundChalleneg =>{
+    }).then(foundChalleneg => {
         if (!foundChalleneg) {
             return res.status(400).json({ msg: "No User Found" })
         }
@@ -65,17 +84,17 @@ router.get('/challenge/:challenge_id', async (req, res) => {
             return res.json(foundChalleneg)
         }
     })
-    
+
 });
 
 // get all the challenge types
 router.get('/challenges/types', async (req, res) => {
 
-    const foundUser =  Challenge.findAll({
+    const foundUser = Challenge.findAll({
         attributes: ["challenge_type"],
         group: ['Challenge.challenge_type'],
-        
-    }).then(foundUser =>{
+
+    }).then(foundUser => {
         if (!foundUser) {
             return res.status(400).json({ msg: "No User Found" })
         }
@@ -83,18 +102,19 @@ router.get('/challenges/types', async (req, res) => {
             return res.json(foundUser)
         }
     })
-    
+
 });
 // check if the user join the challenge
 router.get('/challenges/score/:user_id/:challenge_id', async (req, res) => {
 
-    const foundScore =  Scores.findOne({
+    const foundScore = Scores.findOne({
         where: {
             challenge_id: req.params.challenge_id,
             user_id: req.params.user_id,
+            join :true
         },
-        
-    }).then(foundScore =>{
+
+    }).then(foundScore => {
         if (!foundScore) {
             return res.status(400).json({ msg: "NO" })
         }
@@ -102,20 +122,20 @@ router.get('/challenges/score/:user_id/:challenge_id', async (req, res) => {
             return res.json(foundScore)
         }
     })
-    
+
 });
 // get challenges with Participants
 router.get('/challenges', async (req, res) => {
     const today = new Date();
-    const foundUser =  Challenge.findAll({
+    const foundUser = Challenge.findAll({
         include: [{
             model: User,
             as: 'scores'
         },
-        ], 
+        ],
         where: { end_time: { [Op.gte]: today } },
         order: ['start_time']
-    }).then(foundUser =>{
+    }).then(foundUser => {
         if (!foundUser) {
             return res.status(400).json({ msg: "No User Found" })
         }
@@ -135,29 +155,29 @@ router.get('/challenges/creator/:user_id', async (req, res) => {
             res.status(403).json({ msg: "Invalid credentials, err" });
         }
         else {
-            
-                const foundUser =  Challenge.findAll({
-                    include: [{
-                        model: User,
-                        as: 'scores'
-                    },
-                    {
-                        model: User,
-                        as: 'creator',
-                        // where: { '$public$': true }
-                      },
-                    ],
-                    where:{
-                        creator_id :req.params.user_id
-                    }
-                }).then(foundUser =>{
-                    if (!foundUser) {
-                        return res.status(400).json({ msg: "No User Found" })
-                    }
-                    else {
-                        return res.json(foundUser)
-                    }
-                })
+
+            const foundUser = Challenge.findAll({
+                include: [{
+                    model: User,
+                    as: 'scores'
+                },
+                {
+                    model: User,
+                    as: 'creator',
+                    // where: { '$public$': true }
+                },
+                ],
+                where: {
+                    creator_id: req.params.user_id
+                }
+            }).then(foundUser => {
+                if (!foundUser) {
+                    return res.status(400).json({ msg: "No User Found" })
+                }
+                else {
+                    return res.json(foundUser)
+                }
+            })
         }
     });
 });
@@ -171,53 +191,53 @@ router.get('/challenges/joined/:user_id', async (req, res) => {
             res.status(403).json({ msg: "Invalid credentials, err" });
         }
         else {
-            
-                const foundUser =  Challenge.findAll({
-                    include: [{
-                        model: User,
-                        as: 'scores'
-                    },{
-                        model: User,
-                        as: 'creator',
-                      },
-                    ],
-                    where:{  
-                        '$scores.id$': req.params.user_id,
-                        creator_id:{[Op.ne]:req.params.user_id}
-                     }
-                     
-                    
-                }).then(foundUser =>{
-                    if (!foundUser) {
-                        return res.status(400).json({ msg: "No User Found" })
-                    }
-                    else {
-                        return res.json(foundUser)
-                    }
-                })
+
+            const foundUser = Challenge.findAll({
+                include: [{
+                    model: User,
+                    as: 'scores'
+                }, {
+                    model: User,
+                    as: 'creator',
+                },
+                ],
+                where: {
+                    '$scores.id$': req.params.user_id,
+                    creator_id: { [Op.ne]: req.params.user_id }
+                }
+
+
+            }).then(foundUser => {
+                if (!foundUser) {
+                    return res.status(400).json({ msg: "No User Found" })
+                }
+                else {
+                    return res.json(foundUser)
+                }
+            })
         }
     });
 });
 
-// get challenges with for specific type
+//when loged in fileter the one that created by the user
 router.get('/challenges/types/login/:user_id/:Challenge_type', async (req, res) => {
 
-    const foundChallengeType =  Challenge.findAll({
+    const foundChallengeType = Challenge.findAll({
         include: [{
             model: User,
             as: 'scores'
-        },{
+        }, {
             model: User,
             as: 'creator',
-      
-          },
+
+        },
         ],
-        where:{
-            Challenge_type :req.params.Challenge_type,
-            creator_id:{[Op.ne]:req.params.user_id}
+        where: {
+            Challenge_type: req.params.Challenge_type,
+            creator_id: { [Op.ne]: req.params.user_id }
 
         }
-    }).then(foundChallengeType =>{
+    }).then(foundChallengeType => {
         if (!foundChallengeType) {
             return res.status(400).json({ msg: "No User Found" })
         }
@@ -225,27 +245,27 @@ router.get('/challenges/types/login/:user_id/:Challenge_type', async (req, res) 
             return res.json(foundChallengeType)
         }
     })
-    
+
 });
 // get challenges with for specific type
 router.get('/challenges/types/no/:Challenge_type', async (req, res) => {
 
-    const foundChallengeType =  Challenge.findAll({
+    const foundChallengeType = Challenge.findAll({
         include: [{
             model: User,
             as: 'scores'
-        },{
+        }, {
             model: User,
             as: 'creator',
-      
-          },
+
+        },
         ],
-        where:{
-            Challenge_type :req.params.Challenge_type,
+        where: {
+            Challenge_type: req.params.Challenge_type,
             // creator_id:{[Op.ne]:req.params.user_id}
 
         }
-    }).then(foundChallengeType =>{
+    }).then(foundChallengeType => {
         if (!foundChallengeType) {
             return res.status(400).json({ msg: "No User Found" })
         }
@@ -253,7 +273,7 @@ router.get('/challenges/types/no/:Challenge_type', async (req, res) => {
             return res.json(foundChallengeType)
         }
     })
-    
+
 });
 
 
@@ -275,7 +295,7 @@ router.get('/challenges/types/no/:Challenge_type', async (req, res) => {
 
 //             }
 //           });
-        
+
 //         if (!totalAmount) {
 //             return res.status(400).json({ msg: "No User Found" })
 //         }
