@@ -29,6 +29,10 @@ Scores.init({
     distance: {
         type: DataTypes.DECIMAL(10, 1),
         defaultValue: 0,
+    },
+    join: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
 
 }, {

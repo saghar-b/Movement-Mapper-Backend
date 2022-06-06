@@ -60,32 +60,38 @@ const scores = [
     {
         user_id: "1",
         challenge_id: "1",
-        distance : "5.5"
+        distance : "5.5",
+        join : true,
     }, 
     {
         user_id: "1",
         challenge_id: "3",
-        distance : "3.5"
+        distance : "3.5",
+        join : true,
     }, 
     {
         user_id: "1",
         challenge_id: "4",
-        distance : "5"
+        distance : "5",
+        join : true,
     }, 
     {
         user_id: "2",
         challenge_id: "2",
-        distance : "4"
+        distance : "4",
+        join : true,
     }, 
     {
         user_id: "2",
         challenge_id: "3",
-        distance : "3"
+        distance : "3",
+        join : true,
     }, 
     {
         user_id: "2",
         challenge_id: "4",
-        distance : "5"
+        distance : "5",
+        join : true,
     }, 
 ]
 const logs = [

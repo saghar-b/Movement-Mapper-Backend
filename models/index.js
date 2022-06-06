@@ -10,6 +10,11 @@ User.belongsToMany(Challenge, {
     as: "challenges",
     foreignKey: 'user_id',
 });
+User.belongsToMany(Challenge, {
+    through: Scores,
+    as: "scores",
+    foreignKey: 'user_id',
+});
 Challenge.belongsToMany(User, {
     through: Scores,
     as: 'scores',
