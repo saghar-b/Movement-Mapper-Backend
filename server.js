@@ -7,8 +7,6 @@ require("dotenv").config();
 const moment = require('moment');
 const cors = require("cors")
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-// Import the custom helper methods
-//const helpers = require('./utils/helpers');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const sess = {
@@ -24,7 +22,6 @@ const sess = {
 };
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(session(sess));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
