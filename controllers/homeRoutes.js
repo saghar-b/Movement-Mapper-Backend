@@ -126,46 +126,46 @@ router.get('/challenges/score/:user_id/:challenge_id', async (req, res) => {
     })
 
 });
+// // check if the user join the challenge
+// router.get('/challenges/score/:user_id/:challenge_id', async (req, res) => {
+
+//     const foundScore = Scores.findOne({
+//         where: {
+//             challenge_id: req.params.challenge_id,
+//             user_id: req.params.user_id,
+//             join :true
+//         },
+
+//     }).then(foundScore => {
+//         if (!foundScore) {
+//             return res.status(400).json({ msg: "NO" })
+//         }
+//         else {
+//             return res.json(foundScore)
+//         }
+//     })
+
+// });
 // check if the user join the challenge
-router.get('/challenges/score/:user_id/:challenge_id', async (req, res) => {
+// router.get('/challenges/score/pending/:user_id/:challenge_id', async (req, res) => {
 
-    const foundScore = Scores.findOne({
-        where: {
-            challenge_id: req.params.challenge_id,
-            user_id: req.params.user_id,
-            join :true
-        },
+//     const foundScore = Scores.findOne({
+//         where: {
+//             challenge_id: req.params.challenge_id,
+//             user_id: req.params.user_id,
+//             join :false
+//         },
 
-    }).then(foundScore => {
-        if (!foundScore) {
-            return res.status(400).json({ msg: "NO" })
-        }
-        else {
-            return res.json(foundScore)
-        }
-    })
+//     }).then(foundScore => {
+//         if (!foundScore) {
+//             return res.status(400).json({ msg: "NO" })
+//         }
+//         else {
+//             return res.json(foundScore)
+//         }
+//     })
 
-});
-// check if the user join the challenge
-router.get('/challenges/score/pending/:user_id/:challenge_id', async (req, res) => {
-
-    const foundScore = Scores.findOne({
-        where: {
-            challenge_id: req.params.challenge_id,
-            user_id: req.params.user_id,
-            join :false
-        },
-
-    }).then(foundScore => {
-        if (!foundScore) {
-            return res.status(400).json({ msg: "NO" })
-        }
-        else {
-            return res.json(foundScore)
-        }
-    })
-
-});
+// });
 // get challenges with Participants
 router.get('/challenges', async (req, res) => {
     const today = new Date();
@@ -300,34 +300,34 @@ router.get('/challenges/pending/:user_id', async (req, res) => {
     });
 });
 
-//when loged in fileter the one that created by the user
-router.get('/challenges/types/login/:user_id/:Challenge_type', async (req, res) => {
+// //when loged in fileter the one that created by the user
+// router.get('/challenges/types/login/:user_id/:Challenge_type', async (req, res) => {
 
-    const foundChallengeType = Challenge.findAll({
-        include: [{
-            model: User,
-            as: 'scores'
-        }, {
-            model: User,
-            as: 'creator',
+//     const foundChallengeType = Challenge.findAll({
+//         include: [{
+//             model: User,
+//             as: 'scores'
+//         }, {
+//             model: User,
+//             as: 'creator',
 
-        },
-        ],
-        where: {
-            Challenge_type: req.params.Challenge_type,
-            creator_id: { [Op.ne]: req.params.user_id }
+//         },
+//         ],
+//         where: {
+//             Challenge_type: req.params.Challenge_type,
+//             creator_id: { [Op.ne]: req.params.user_id }
 
-        }
-    }).then(foundChallengeType => {
-        if (!foundChallengeType) {
-            return res.status(400).json({ msg: "No User Found" })
-        }
-        else {
-            return res.json(foundChallengeType)
-        }
-    })
+//         }
+//     }).then(foundChallengeType => {
+//         if (!foundChallengeType) {
+//             return res.status(400).json({ msg: "No User Found" })
+//         }
+//         else {
+//             return res.json(foundChallengeType)
+//         }
+//     })
 
-});
+// });
 // get challenges with for specific type
 router.get('/challenges/types/no/:Challenge_type', async (req, res) => {
 
