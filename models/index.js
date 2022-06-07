@@ -3,7 +3,7 @@
 const User = require('./User');
 const Challenge = require('./Challenge');
 const Scores = require('./Scores');
-const Logs = require('./Logs');
+const Logs = require('./Records');
 
 User.belongsToMany(Challenge, {
     through: Scores,
