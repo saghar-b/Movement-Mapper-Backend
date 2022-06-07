@@ -7,54 +7,79 @@ const users = [
         user_name: "Saghar",
         email: "behinaeen.saghar@gmail.com",
         password: "123",
-
-    }, {
+    },
+    {
         user_name: "Nicole",
         email: "Nicole@gmail.com",
         password: "password"
+    },
+    {
+        user_name: "Pablo",
+        email: "Pablo@gmail.com",
+        password: "morbintime"
+    },
+    {
+        user_name: "Jonathan",
+        email: "Jonathan@gmail.com",
+        password: "hackerman"
     }
 
 
 ]
 const challenge = [
     {
-        Challenge_type: "run",
-        Challenge_name: "greenlacke run",
-        creator_id:2,
+        Challenge_type: "Hike",
+        Challenge_name: "Greenlake Hike",
+        creator_id:1,
         start_time:"2022-05-24T15:30",
         end_time:"2022-06-24T17:45",
-        description: "Best Challenge",
-        picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
+        description: "A hiking competition for those in the area, preferrebly at Greenlake but feel free to track your progress anywhere! Just get up and get started!",
+        picture_path: "https://images.unsplash.com/photo-1440186347098-386b7459ad6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
         unit: "Mile"
-    }, {
-        Challenge_type: "sweem",
-        Challenge_name: "fircrest swimming pool",
+    },
+    {
+        Challenge_type: "Swim",
+        Challenge_name: "Fircrest Baby Sharkathon",
         creator_id:2,
         start_time:"2022-05-24T15:30",
         end_time:"2022-05-24T17:45",
-        description: "Best Challenge",
-        picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
+        description: "Mommy shark doo doo doo",
+        picture_path: "https://images.unsplash.com/photo-1530549387789-4c1017266635?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
         unit: "Mile"
-    }, {
-        Challenge_type: "rowing",
-        Challenge_name: "lake washington row",
-        creator_id:2,
+    },
+    {
+        Challenge_type: "Row",
+        Challenge_name: "Lake Washington Row",
+        creator_id:3,
         start_time:"2022-06-24T15:30",
         end_time:"2022-07-24T17:45",
-        description: "Best Challenge",
-        picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
+        description: "Want to get into competitive rowing? Check out the club!",
+        picture_path: "https://images.unsplash.com/photo-1652017771620-94e53c9edd94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
         unit: "Mile"
-    }, {
-        Challenge_type: "biking",
-        Challenge_name: "seattle bike",
-        creator_id:1,
+    },
+    {
+        Challenge_type: "Bike",
+        Challenge_name: "Interurban trialblazing",
+        creator_id:4,
         start_time:"2022-05-24T15:30",
         end_time:"2022-08-24T17:45",
-        description: "Best Challenge",
-        picture_path: "https://www.primeum.com/hubfs/Imported_Blog_Media/challenge-commercial.jpg",
+        description: "Seattle area cyclists founded, but anyone is welcome to join!",
+        picture_path: "https://images.unsplash.com/photo-1559235270-2df4dcfb4eca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
         unit: "Mile"
 
     }
+    // This needds some work on the challenge model to implement reps instead of distance units
+    // {
+    //     Challenge_type: "Weights",
+    //     Challenge_name: "Saitama Punch Training",
+    //     creator_id:3,
+    //     start_time:"2022-05-24T15:30",
+    //     end_time:"2022-08-24T17:45",
+    //     description: "Want to add some power to your punches, time to train those muscles!",
+    //     picture_path: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    //     unit: "Mile"
+
+    // }
 ]
 const scores = [
     {
@@ -64,69 +89,37 @@ const scores = [
         join : true,
     }, 
     {
-        user_id: "1",
-        challenge_id: "3",
+        user_id: "2",
+        challenge_id: "2",
         distance : "3.5",
         join : true,
     }, 
     {
-        user_id: "1",
-        challenge_id: "4",
+        user_id: "3",
+        challenge_id: "3",
         distance : "5",
         join : true,
     }, 
     {
-        user_id: "2",
-        challenge_id: "2",
+        user_id: "4",
+        challenge_id: "4",
         distance : "4",
         join : true,
     }, 
     {
-        user_id: "2",
-        challenge_id: "3",
+        user_id: "1",
+        challenge_id: "2",
         distance : "3",
         join : true,
     }, 
     {
         user_id: "2",
-        challenge_id: "4",
+        challenge_id: "1",
         distance : "5",
         join : true,
     }, 
 ]
-const logs = [
-    {
-        activity_type : "run",
-        user_id: "1",
-        distance: "1",
-    }, 
-    {
-        activity_type : "run",
-        user_id: "1",
-        distance: "3",
-    }, 
-    {
-        activity_type : "run",
-        user_id: "1",
-        distance: "6",
-    }, 
-    {
-        activity_type : "run",
-        user_id: "2",
-        distance: "1",
-    }, 
-    {
-        activity_type : "swim",
-        user_id: "2",
-        distance: "13",
-    }, 
-    {
-        activity_type : "run",
-        user_id: "2",
-        distance: "1",
-    }, 
-    
-]
+
 
 
 
@@ -138,8 +131,6 @@ const feedMe = async () => {
         });
         await Challenge.bulkCreate(challenge);
         await Scores.bulkCreate(scores)
-        await Logs.bulkCreate(logs)
-
         process.exit(0);
     } catch (err) {
         console.log(err)
