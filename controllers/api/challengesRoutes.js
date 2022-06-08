@@ -7,7 +7,7 @@ router.post("/new", (req, res) => {
     const toekn = req.headers?.authorization?.split(" ").pop();
     jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
         if (err) {
-            console.log(err);
+
             res.status(403).json({ msg: "Invalid credentials, err" });
         }
         else {
@@ -18,9 +18,7 @@ router.post("/new", (req, res) => {
                 }
             }).then(foundChallenge => {
                 if (foundChallenge) {
-                    console.log("man innjam")
                     res.send("Challenge exist")
-                    //  res.status(400).json({ msg: "foundChallenge exist" })
                 }
                 else {
                     Challenge.create({
@@ -32,7 +30,7 @@ router.post("/new", (req, res) => {
                         description: req.body.description,
                         picture_path: req.body.picture_path,
                         description: req.body.description,
-                        unit:req.body.unit,
+                        unit: req.body.unit,
                     })
                         .then(newChaallenge => {
 
@@ -40,7 +38,6 @@ router.post("/new", (req, res) => {
                         })
                         .then(items => res.json(items))
                         .catch(err => {
-                            console.log(err);
                             res.status(500).json({ msg: "an error occured", err });
                         });
                 }
@@ -53,8 +50,8 @@ router.post("/new", (req, res) => {
 
 //delete a Challenge
 router.delete("/:id", async (req, res) => {
-    
-    
+
+
     try {
         const curEvent = await Challenge.findByPk(req.params.id);
         const delEvent = await Challenge.destroy({
@@ -64,7 +61,7 @@ router.delete("/:id", async (req, res) => {
         })
         res.json(delEvent);
     } catch (err) {
-        console.log(err);
+
         res.status(500).json({ msg: "an error occured", err });
     }
 });
