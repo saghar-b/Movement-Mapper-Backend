@@ -12,7 +12,4 @@ const scoresRoutes = require('./scoresRoutes');
 router.use('/scores', scoresRoutes);
 
 
-const imageRoutes = require('./imageRoutes');
-router.use('/images', imageRoutes);
-
 module.exports = router;

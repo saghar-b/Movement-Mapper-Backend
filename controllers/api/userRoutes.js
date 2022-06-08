@@ -5,39 +5,34 @@ const bcrypt = require("bcrypt");
 
 // login
 router.post('/login', async (req, res) => {
-  // try {
-    const foundUser = await User.findOne({
-      where: {
-        user_name: req.body.user_name
+  const foundUser = await User.findOne({
+    where: {
+      user_name: req.body.user_name
+    }
+  })
+  if (!foundUser) {
+    return res.status(400).json({ msg: "wrong login credentials" })
+  }
+  if (bcrypt.compareSync(req.body.password, foundUser.password)) {
+    const token = jwt.sign({
+
+      user_name: foundUser.user_name,
+      id: foundUser.id
+
+    },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "2h"
       }
+    );
+    return res.json({
+      token: token,
+      user: foundUser
     })
-    if (!foundUser) {
-      return res.status(400).json({ msg: "wrong login credentials" })
-    }
-    if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-      const token = jwt.sign({
+  } else {
+    return res.status(400).json({ msg: "wrong login credentials" })
+  }
 
-        user_name: foundUser.user_name,
-        id: foundUser.id
-
-      },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "2h"
-        }
-      );
-     
-    
-      return res.json({
-        token: token,
-        user: foundUser
-      })
-      
-
-    } else {
-      return res.status(400).json({ msg: "wrong login credentials" })
-    }
-  
 });
 
 
@@ -56,15 +51,15 @@ router.post("/signup", (req, res) => {
           expiresIn: "2h"
         }
       );
-     
-    
+
+
       return res.json({
         token: token,
         user: newUser
       })
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
       res.status(500).json({ msg: "This username  exist.Please use another username ", err });
     });
 });

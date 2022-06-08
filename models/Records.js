@@ -5,7 +5,7 @@ const sequelize = require('../config/connection');
 class Logs extends Model { }
 
 Logs.init({
-   
+
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -14,7 +14,7 @@ Logs.init({
     },
     activity_type: {
         type: DataTypes.STRING,
-       
+
     },
     user_id: {
         type: DataTypes.INTEGER,
@@ -23,13 +23,13 @@ Logs.init({
             key: 'id',
         },
     },
-    distance :{
-        type : DataTypes.DECIMAL(10,1),
-        defaultValue:0,
+    distance: {
+        type: DataTypes.DECIMAL(10, 1),
+        defaultValue: 0,
     }
 
 }, {
-    
+
     sequelize,
     timestamps: false,
     freezeTableName: true,

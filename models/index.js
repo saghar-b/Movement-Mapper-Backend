@@ -29,13 +29,7 @@ Challenge.belongsTo(User, {
 User.hasMany(Challenge, {
     foreignKey: "creator_id"
 });
-// Logs.belongsTo(User,{
-//     foreignKey: "user_id"
-// })
 
-// User.hasMany(Logs,{
-//     foreignKey: "user_id" 
-// })
 module.exports = {
-    User,Challenge,Scores,Logs
+    User, Challenge, Scores, Logs
 };
