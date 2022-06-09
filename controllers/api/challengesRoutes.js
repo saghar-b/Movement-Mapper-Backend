@@ -34,7 +34,7 @@ router.post("/new", (req, res) => {
                     })
                         .then(newChaallenge => {
 
-                            res.json(newChaallenge);
+                            res.status(409).json({ msg: "an error occured" });
                         })
                         .then(items => res.json(items))
                         .catch(err => {
