@@ -283,6 +283,7 @@ router.get('/challenges/types/no/:Challenge_type', async (req, res) => {
         ],
         where: {
             Challenge_type: req.params.Challenge_type,
+            '$scores.score.join$': true,
         }
     }).then(foundChallengeType => {
         if (!foundChallengeType) {
