@@ -174,7 +174,8 @@ router.get('/challenges/creator/:user_id', async (req, res) => {
                 },
                 ],
                 where: {
-                    creator_id: req.params.user_id
+                    creator_id: req.params.user_id,
+                    '$scores.score.join$': true,
                 }
             }).then(foundUser => {
                 if (!foundUser) {
