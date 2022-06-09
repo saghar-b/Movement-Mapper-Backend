@@ -18,7 +18,7 @@ router.post("/new", (req, res) => {
                 }
             }).then(foundChallenge => {
                 if (foundChallenge) {
-                    res.send("Challenge exist")
+                    return res.status(409).json({ msg: "NO" })
                 }
                 else {
                     Challenge.create({
