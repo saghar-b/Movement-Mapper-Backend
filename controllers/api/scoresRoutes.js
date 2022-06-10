@@ -4,12 +4,11 @@ const { Challenge, Scores } = require('../../models');
 
 // create new Log
 router.post("/new", (req, res) => {
-    console.log(req.body.challenge_id)
-    console.log(req.body.user_id)
+
     const toekn = req.headers?.authorization?.split(" ").pop();
     jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
         if (err) {
-            console.log(err);
+            // console.log(err);
             res.status(403).json({ msg: "Invalid credentials, err" });
         }
         else {
@@ -27,7 +26,7 @@ router.post("/new", (req, res) => {
 
                     Scores.update({
                         distance: newScore,
-                        join : "true"
+                        join: "true"
 
                     }, {
                         where: {
@@ -40,7 +39,7 @@ router.post("/new", (req, res) => {
                         })
                         .then(items => res.json(items))
                         .catch(err => {
-                            console.log(err);
+                            // console.log(err);
                             res.status(500).json({ msg: "an error occured", err });
                         });
                 }
@@ -52,7 +51,7 @@ router.post("/new", (req, res) => {
                             res.json(newScore)
                         })
                         .catch(err => {
-                            console.log(err);
+                            // console.log(err);
                             res.status(500).json({ msg: "fail to create the score ", err });
                         });
                 }
@@ -69,7 +68,7 @@ router.post("/invite", (req, res) => {
     const toekn = req.headers?.authorization?.split(" ").pop();
     jwt.verify(toekn, process.env.JWT_SECRET, (err, data) => {
         if (err) {
-            console.log(err);
+            // console.log(err);
             res.status(403).json({ msg: "Invalid credentials, err" });
         }
         else {
@@ -82,9 +81,9 @@ router.post("/invite", (req, res) => {
             }).then(foundScore => {
                 // if already joined
                 if (foundScore) {
-                //    return res.json({ msg: "joined" })
-                   return res.status(400).json({ msg: "NO" })
-                   
+                    //    return res.json({ msg: "joined" })
+                    return res.status(400).json({ msg: "NO" })
+
                 }
                 // if not joined
                 else {
@@ -94,7 +93,7 @@ router.post("/invite", (req, res) => {
                             return res.json({ msg: "Invited" })
                         })
                         .catch(err => {
-                            console.log(err);
+                            // console.log(err);
                             res.status(500).json({ msg: "fail to create the score ", err });
                         });
                 }
@@ -107,8 +106,7 @@ router.post("/invite", (req, res) => {
 
 //leave the challenge
 router.delete("/:user_id/:challenge_id", (req, res) => {
-    console.log(req.params.user_id)
-    console.log(req.params.challenge_id)
+
     Scores.destroy({
         where: {
             user_id: req.params.user_id,
@@ -118,7 +116,7 @@ router.delete("/:user_id/:challenge_id", (req, res) => {
         res.json(delScore);
     })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             res.status(500).json({ msg: "an error occured", err });
         });
 });
