@@ -10,54 +10,54 @@
 
 ## Table of Contents 
     
-  - [Contribute](#contribute)
+  - [Contributors](#contributors)
   - [User Story](#user-story)
   - [Deployed link](#deployed-link)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
-  - [Consept](#concept)
-  - [Test](#test)
+  - [Concepts](#concepts)
   - [ERD](#erd)
 
-## Contribute
+## Contributors
 *   Jonathan Tran
 *   Nicole Franklin
 *   Pablo Rosales
 *   Saghar Behinaein
   
 ## User Story
+As a user, I want to be able to create an exercise challenge so that I can motivate myself and my friends to be more active and lead a healthier lifestyle.
 
 
 ## Deployed link
-[Deployed Link](https://movementmapper-back.herokuapp.com/users)
+[This backend link just responds with information for different routes](https://movementmapper-back.herokuapp.com/users)
   
 
 ## Installation
 Here are some guidelines to help you get started:
 
-1. Clone the project in your laptop  
+1. Clone the back-end repo (this repo) 
 2. Make sure you installed Node on your visual studio 
-3. Run the `npm init -y` comand in your terminal
-4. Run the `npm install` comand in your terminal
-5. Run the `npm install express mysql2 sequelize dotenv bcrypt connect-session-sequelize express-session jsonwebtoken` comand in your terminal
-6. Run the `npm install cors` comand in your terminal
-7.  inside it should have:
+3. Make sure you installed MySQL and have it configured with your username & password
+3. Run `npm i` command in your terminal in this repo's directory
+5. Run `npm install express mysql2 sequelize dotenv bcrypt connect-session-sequelize express-session jsonwebtoken` comand in your terminal
+6. Run `npm install cors` comand in your terminal
+7.  Create a .env file, it should have:
     * DB_NAME=challenge_db
-    * DB_PASSWORD=********
+    * DB_PASSWORD=
     * DB_USER=root
     * SESSION_SECRET = super secret
     * JWT_SECRET= very secure
-    * CLOUDINARY_API_KEY=373844248451174
-    * CLOUDINARY_API_SECRET=RSOpbxVmjV8il6BCAooWfTsAkF4
-    * CLOUDINARY_NAME=dsnhj09ev
-8.  start the terminal from server.js
-9.  run the `npm run schema` in terminal
-10.  run the `npm run seed` in terminal
-11.  run the `node start` in terminal
+    * CLOUDINARY_API_KEY=
+    * CLOUDINARY_API_SECRET=
+    * CLOUDINARY_NAME=
+8. For the DB_PASSWORD, make sure to use your password you made when installing MySQL
+9. Sign up with cloudinary and create your api key, then copy the key, secret, and name and put in into the .env file
+8. Open the terminal from server.js
+9. run  `npm run schema` in terminal
+10. run `npm run seed` in terminal
+11. run `node start` in terminal
 
-Or just go to deployed site, no need for install   
-
-## Concept
+## Concepts
 A Collaborative Challenge Invitation System
 * Create an account & login
 * Create new Challenge
@@ -66,7 +66,7 @@ A Collaborative Challenge Invitation System
 * Invite other users to your Challenge
 * See Challenge created by other users
 * Log activity
-* convet units
+* Convert units
 * Show the scores and present them in a chart
 
 
@@ -102,7 +102,6 @@ you can see diffrent pages in the Byo-Backpack:
 
 ## ERD
 ![ERD](./Assets/Movement-Mapper-Backend-RED.png)
-
 
 
 
