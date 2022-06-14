@@ -82,7 +82,7 @@ A Collaborative Challenge Invitation System
 <img width="1317" alt="Screen Shot 2022-06-13 at 1 54 16 PM" src="https://user-images.githubusercontent.com/101743933/173470456-077e26c8-5da9-4b18-83cf-7c1b91e69fd4.png">
 
 * Create an Challenge Page: 
-![Screen Shot 2022-06-13 at 5 49 06 PM](https://user-images.githubusercontent.com/101743933/173470595-120c9ec6-af71-4d33-ae69-76d05aa78436.png)
+<img width="1239" alt="Screen Shot 2022-06-13 at 6 01 59 PM" src="https://user-images.githubusercontent.com/101743933/173471741-7472eff9-0699-42ca-a764-cda60e5c1c33.png">
 
 
 * Dashboard Page for mobile: 
