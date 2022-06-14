@@ -16,6 +16,7 @@
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Concepts](#concepts)
+  - [Screenshots](#Screenshots)
   - [ERD](#erd)
 
 ## Contributors
@@ -70,35 +71,23 @@ A Collaborative Challenge Invitation System
 * Show the scores and present them in a chart
 
 
-## Test
-you can see diffrent pages in the Byo-Backpack:   
+## Screenshots:  
 * Login Page: 
-
-![login]()
+<img width="1095" alt="Screen Shot 2022-06-13 at 5 47 07 PM" src="https://user-images.githubusercontent.com/101743933/173470399-0db43b18-7937-4a7a-b055-f3fe46ca3e1a.png">
 
 * Home Page: 
-
-![home]()
+<img width="1326" alt="Screen Shot 2022-06-13 at 1 53 12 PM" src="https://user-images.githubusercontent.com/101743933/173470417-be02f4fb-3b14-4658-8ab5-4941abdfbe6e.png">
 
 * Dashboard Page: 
-
-![Dashboard]()
+<img width="1317" alt="Screen Shot 2022-06-13 at 1 54 16 PM" src="https://user-images.githubusercontent.com/101743933/173470456-077e26c8-5da9-4b18-83cf-7c1b91e69fd4.png">
 
 * Create an Challenge Page: 
+![Screen Shot 2022-06-13 at 5 49 06 PM](https://user-images.githubusercontent.com/101743933/173470595-120c9ec6-af71-4d33-ae69-76d05aa78436.png)
 
-![new challenge]()
-
-* Home Page for mobile: 
-
-![mobile home](./public/images/m1.png)
 
 * Dashboard Page for mobile: 
+<img width="273" alt="Screen Shot 2022-06-13 at 1 55 28 PM" src="https://user-images.githubusercontent.com/101743933/173470616-0a2f8808-fb0a-48b8-8962-c4b30e37b3ee.png">
 
-![Dashboard mobile](./public/images/m2.png)
-
-* Create an Event Page for mobile: 
-
-![new challenge mobile](./public/images/m3.png)
 
 ## ERD
 ![ERD](./Assets/Movement-Mapper-Backend-RED.png)
